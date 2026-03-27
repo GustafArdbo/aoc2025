@@ -26,10 +26,12 @@ public class Day2 {
                     }
                 }
 
-                boolean isValidID = true;
-
                 for(Long current = Long.parseLong(startRange); current <= Long.parseLong(endRange); current++){
                     String currentID = String.valueOf(current);
+                    if(currentID.startsWith("0")){
+                        continue;
+                    }
+                    boolean isValidID = true;
 
                     for(int divide : divisible){
                         List<String> equalParts = new ArrayList<>();
@@ -37,6 +39,7 @@ public class Day2 {
                         for(int i = 0; i < currentID.length(); i = i + divide){
                             equalParts.add(currentID.substring(i, i + divide));
                         }
+                        System.out.println(equalParts);
                         for(String string : equalParts){
                             if(!equalParts.getFirst().equals(string)){
                                 isValidID = false;
@@ -44,15 +47,12 @@ public class Day2 {
                         }
                     }
                     if(isValidID){
-                        System.out.println();
+                        System.out.println("Valid ID: " + currentID);
                         validIdsSum += current;
                     }
                 }
-
             }
-            System.out.println(validIdsSum);
-
-
+            System.out.println("Answer: " + validIdsSum);
         } catch(IOException e){
             e.printStackTrace();
         }
