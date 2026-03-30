@@ -17,7 +17,7 @@ public class Day2 {
             for(String range : ranges){
                 String startRange = range.split("-")[0];
                 String endRange = range.split("-")[1];
-                
+
                 for(Long current = Long.parseLong(startRange); current <= Long.parseLong(endRange); current++){
 
                     List<Integer> divisible = new ArrayList<>();
