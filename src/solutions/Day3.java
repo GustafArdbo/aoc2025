@@ -51,18 +51,26 @@ public class Day3 {
         try(BufferedReader br = new BufferedReader(new FileReader("src/io/TestData"))){
 
             String line;
-
             long sum = 0;
 
             while((line = br.readLine()) != null){
 
                 StringBuilder sb = new StringBuilder();
+                int indexOfLast = 0;
 
-                for(int i = 0; i < line.length() - BATTERY_AMOUNT; i++){
-                    
+                while(sb.length() < BATTERY_AMOUNT){
+                    int max = 0;
+                    for(int i = indexOfLast; i < line.length() - BATTERY_AMOUNT - sb.length(); i++){
+                        int current = Integer.parseInt(String.valueOf(line.charAt(i)));
+                        System.out.println("i = " + i + " current = " + current);
+                        if(max < current){
+                            max = current;
+                            indexOfLast = i;
+                        }
+                    }
+                    sb.append(max);
                 }
-
-
+                System.out.println(sb);
             }
         }catch(IOException e){
             e.printStackTrace();

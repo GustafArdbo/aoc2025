@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] str) {
         //Day1.run();
         //Day2.run();
-        Day3.runPartOne();
+        //Day3.runPartOne();
+        Day3.runPartTwo();
     }
 }
