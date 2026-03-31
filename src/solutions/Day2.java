@@ -57,7 +57,6 @@ public class Day2 {
                             }
                         }
                         if(!isInvalidID){
-                            System.out.println("Invalid ID: " + currentID);
                             validIdsSum += current;
                             break;
                         }
