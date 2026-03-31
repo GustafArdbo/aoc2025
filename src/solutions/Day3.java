@@ -10,7 +10,6 @@ public class Day3 {
 
     public static void runPartOne(){
         try(BufferedReader br = new BufferedReader(new FileReader("src/io/InputDay3"))){
-
             String line;
             String powerOfTen = "";
             String powerOfOne = "";
@@ -37,41 +36,40 @@ public class Day3 {
                     }
                 }
                 powerOfOne = String.valueOf(max);
-
                 sum += Integer.parseInt(powerOfTen + powerOfOne);
             }
             System.out.println("Answer: " + sum);
-
         }catch(IOException e){
             e.printStackTrace();
         }
     }
 
     public static void runPartTwo(){
-        try(BufferedReader br = new BufferedReader(new FileReader("src/io/TestData"))){
-
+        try(BufferedReader br = new BufferedReader(new FileReader("src/io/InputDay3"))){
             String line;
             long sum = 0;
 
             while((line = br.readLine()) != null){
-
                 StringBuilder sb = new StringBuilder();
                 int indexOfLast = 0;
 
                 while(sb.length() < BATTERY_AMOUNT){
                     int max = 0;
-                    for(int i = indexOfLast; i < line.length() - BATTERY_AMOUNT - sb.length(); i++){
+                    int index = 0;
+                    for(int i = indexOfLast; i < line.length() - BATTERY_AMOUNT + sb.length() + 1; i++){
                         int current = Integer.parseInt(String.valueOf(line.charAt(i)));
-                        System.out.println("i = " + i + " current = " + current);
                         if(max < current){
                             max = current;
-                            indexOfLast = i;
+                            index = i;
                         }
                     }
+                    indexOfLast = index + 1;
                     sb.append(max);
                 }
                 System.out.println(sb);
+                sum += Long.parseLong(sb.toString());
             }
+            System.out.println(sum);
         }catch(IOException e){
             e.printStackTrace();
         }
