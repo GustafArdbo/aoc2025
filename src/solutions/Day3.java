@@ -66,7 +66,6 @@ public class Day3 {
                     indexOfLast = index + 1;
                     sb.append(max);
                 }
-                System.out.println(sb);
                 sum += Long.parseLong(sb.toString());
             }
             System.out.println(sum);
