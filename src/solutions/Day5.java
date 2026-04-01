@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Day5 {
-    private static final String FILE_NAME = "src/io/InputDay5";
+    private static final String FILE_NAME = "src/io/TestData";
     private static final List<Range> allIds = new ArrayList<>();
 
 
@@ -15,8 +15,8 @@ public class Day5 {
             return id >= startID && id <= endID;
         }
 
-        long getAmountOfIDsInRange(){
-            return endID - startID;
+        int getAmountOfIDsInRange(){
+            return (int) (endID - startID);
         }
     }
 
@@ -46,10 +46,21 @@ public class Day5 {
     public static void runPartTwo(){
         try(BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))){
             loadListOfRanges(br);
-            long sum = 0;
+            int sum = 0;
+            allIds.sort(Comparator.comparing(Range::startID).thenComparing(Range::endID));
+            System.out.println(allIds);
 
-            for(Range range : allIds){
-                sum += range.getAmountOfIDsInRange();
+            sum += allIds.getFirst().getAmountOfIDsInRange();
+            for(int i = 1; i < allIds.size(); i++){
+
+                Range current = allIds.get(i);
+
+                if(current.startID < allIds.get(i - 1).endID){
+                    sum += (int) (allIds.get(i - 1).endID - current.endID);
+                }else{
+                    sum += current.getAmountOfIDsInRange();
+                }
+
             }
             System.out.println(sum);
         }catch(IOException e){
