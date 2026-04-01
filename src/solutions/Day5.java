@@ -16,7 +16,7 @@ public class Day5 {
         }
 
         int getAmountOfIDsInRange(){
-            return (int) (endID - startID);
+            return (int) (endID - startID + 1);
         }
     }
 
@@ -54,9 +54,10 @@ public class Day5 {
             for(int i = 1; i < allIds.size(); i++){
 
                 Range current = allIds.get(i);
+                Range before = allIds.get(i - 1);
 
-                if(current.startID < allIds.get(i - 1).endID){
-                    sum += (int) (allIds.get(i - 1).endID - current.endID);
+                if(current.startID < before.endID){
+                    sum += (int) (current.endID - before.endID);
                 }else{
                     sum += current.getAmountOfIDsInRange();
                 }
