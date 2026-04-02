@@ -53,12 +53,12 @@ public class Day5 {
             System.out.println();
 
             for (Range current : allIds) {
-                if (largestCurrentID > current.endID) {
+                if (largestCurrentID >= current.endID) {
                     System.out.println("Skipping because: " + largestCurrentID + " > " + current.endID + " (" + current.startID + "-" + current.endID + ")");
                     continue;
                 }
 
-                if (current.startID < largestCurrentID) {
+                if (current.startID <= largestCurrentID) {
                     System.out.print(sum + " + " + (current.endID - largestCurrentID) + " | ");
                     sum += current.endID - largestCurrentID;
                 } else {
