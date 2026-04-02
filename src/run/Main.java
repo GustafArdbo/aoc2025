@@ -1,9 +1,6 @@
 package run;
 
-import solutions.Day1;
-import solutions.Day2;
-import solutions.Day3;
-import solutions.Day4;
+import solutions.*;
 
 public class Main {
     public static void main(String[] str) {
@@ -12,6 +9,8 @@ public class Main {
         //Day3.runPartOne();
         //Day3.runPartTwo();
         //Day4.runPartOne();
-        Day4.runPartTwo();
+        //Day4.runPartTwo();
+        //Day5.runPartOne();
+        Day5.runPartTwo();
     }
 }
