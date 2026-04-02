@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Day5 {
-    private static final String FILE_NAME = "src/io/TestData";
+    private static final String FILE_NAME = "src/io/InputDay5";
     private static final List<Range> allIds = new ArrayList<>();
 
 
@@ -15,8 +15,8 @@ public class Day5 {
             return id >= startID && id <= endID;
         }
 
-        int getAmountOfIDsInRange(){
-            return (int) (endID - startID + 1);
+        long getAmountOfIDsInRange(){
+            return endID - startID + 1;
         }
     }
 
@@ -46,24 +46,33 @@ public class Day5 {
     public static void runPartTwo(){
         try(BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))){
             loadListOfRanges(br);
-            int sum = 0;
+            long sum = 0;
             allIds.sort(Comparator.comparing(Range::startID).thenComparing(Range::endID));
+            long largestCurrentID = 0;
             System.out.println(allIds);
 
-            sum += allIds.getFirst().getAmountOfIDsInRange();
-            for(int i = 1; i < allIds.size(); i++){
-
+            //sum += allIds.getFirst().getAmountOfIDsInRange();
+            for(int i = 0; i < allIds.size(); i++){
                 Range current = allIds.get(i);
-                Range before = allIds.get(i - 1);
 
-                if(current.startID < before.endID){
-                    sum += (int) (current.endID - before.endID);
-                }else{
-                    sum += current.getAmountOfIDsInRange();
+                if(largestCurrentID > current.endID){
+                    System.out.println("Skipping because: " + largestCurrentID + " > " + current.endID);
+                    continue;
                 }
 
+                if(current.startID < largestCurrentID){
+                    System.out.print(sum + " + " + (current.endID - largestCurrentID) + " | ");
+                    sum += current.endID - largestCurrentID;
+                }else{
+                    System.out.print(sum + " + " + current.getAmountOfIDsInRange() + " | ");
+                    sum += current.getAmountOfIDsInRange();
+                }
+                largestCurrentID = current.endID;
+                System.out.println(current.startID + "-" + current.endID);
+                System.out.println("largest current: " + largestCurrentID);
             }
-            System.out.println(sum);
+            System.out.println("sum: " + sum);
+
         }catch(IOException e){
             e.printStackTrace();
         }
