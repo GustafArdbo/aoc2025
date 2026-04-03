@@ -11,6 +11,7 @@ public class Main {
         //Day4.runPartOne();
         //Day4.runPartTwo();
         //Day5.runPartOne();
-        Day5.runPartTwo();
+        //Day5.runPartTwo();
+        Day6.runPartOne();
     }
 }
