@@ -88,20 +88,40 @@ public class Day6 {
         try(BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))){
             long sum = 0;
             List<String> allLines = new ArrayList<>();
+            int longestLine = 0;
 
             String line;
             while((line = br.readLine()) != null){
                 allLines.add(line);
+                if(line.length() > longestLine){
+                    longestLine = line.length();
+                }
+            }
+            for(String string : allLines){
+                if(string.length() != longestLine){
+                    int diff = longestLine - string.length();
+                    System.out.println("diff: " + diff);
+                    for(int i = 0; i < diff; i++){
+                        string = string + " ";
+                    }
+                }
+            }
+            int symbolLineLength = allLines.getLast().length();
+
+            for(String str : allLines){
+                System.out.println(str.length());
             }
 
             int indexOfMathProblem = 0;
             boolean isNewMathProblem = false;
             for(int i = 0; i < allLines.getFirst().length(); i++){
-                char symbol = allLines.getLast().charAt(i);
+                char symbol = ' ';
+                if(!(i >= symbolLineLength)){
+                    symbol = allLines.getLast().charAt(i);
+                }
                 MathProblem problem;
 
                 if(symbol == '*' || symbol == '+'){
-                    System.out.println("Creating a new problem:");
                     problem = new MathProblem(new ArrayList<>());
                     mathProblems.add(problem);
                     if(isNewMathProblem){
@@ -110,25 +130,25 @@ public class Day6 {
                         indexOfMathProblem = i;
                     }
                 } else {
-                    System.out.println(mathProblems.size() + " " + mathProblems);
                     problem = mathProblems.get(indexOfMathProblem);
                 }
                 StringBuilder number = new StringBuilder();
                 for(int x = 0; x < allLines.size() - 1; x++){
                     if(!(allLines.get(x).charAt(i) == ' ')){
                         number.append(allLines.get(x).charAt(i));
+                        System.out.println(allLines.get(x).charAt(i));
                     }
                 }
+                System.out.println();
 
                 if(number.toString().isEmpty()){
                     isNewMathProblem = true;
                     continue;
                 }
 
-
                 problem.numbers.add(Integer.valueOf(number.toString().trim()));
-
             }
+            System.out.println(mathProblems);
 
         }catch(IOException e){
             e.printStackTrace();
