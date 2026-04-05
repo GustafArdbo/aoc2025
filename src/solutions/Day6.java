@@ -4,10 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Predicate;
 
 public class Day6 {
-    private static final String FILE_NAME = "src/io/TestData";
+    private static final String FILE_NAME = "src/io/InputDay6";
     private static final List<MathProblem> mathProblems = new ArrayList<>();
 
     private static class MathProblem {
@@ -86,34 +85,27 @@ public class Day6 {
 
     public static void runPartTwo(){
         try(BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))){
-            long sum = 0;
-            List<String> allLines = new ArrayList<>();
-            int longestLine = 0;
+            List<String> input = new ArrayList<>();
 
             String line;
             while((line = br.readLine()) != null){
-                allLines.add(line);
-                if(line.length() > longestLine){
-                    longestLine = line.length();
-                }
+                input.add(line);
             }
-            for(String string : allLines){
-                if(string.length() != longestLine){
-                    int diff = longestLine - string.length();
-                    System.out.println("diff: " + diff);
-                    for(int i = 0; i < diff; i++){
-                        string = string + " ";
-                    }
+            int maxLength = input.stream().mapToInt(String::length).max().getAsInt();
+            List<String> allLines = new ArrayList<>();
+
+            for(String string : input){
+                StringBuilder stringBuilder = new StringBuilder(string);
+                for(int i = 0; i < maxLength - string.length(); i++){
+                    stringBuilder.append(" ");
                 }
+                string = stringBuilder.toString();
+                allLines.add(string);
             }
             int symbolLineLength = allLines.getLast().length();
-
-            for(String str : allLines){
-                System.out.println(str.length());
-            }
-
             int indexOfMathProblem = 0;
             boolean isNewMathProblem = false;
+
             for(int i = 0; i < allLines.getFirst().length(); i++){
                 char symbol = ' ';
                 if(!(i >= symbolLineLength)){
@@ -123,6 +115,7 @@ public class Day6 {
 
                 if(symbol == '*' || symbol == '+'){
                     problem = new MathProblem(new ArrayList<>());
+                    problem.mathSymbol = String.valueOf(symbol);
                     mathProblems.add(problem);
                     if(isNewMathProblem){
                         indexOfMathProblem = mathProblems.size() - 1;
@@ -148,7 +141,11 @@ public class Day6 {
 
                 problem.numbers.add(Integer.valueOf(number.toString().trim()));
             }
-            System.out.println(mathProblems);
+            long sum = 0;
+            for(MathProblem problem : mathProblems){
+                sum += problem.getResult();
+            }
+            System.out.println(sum);
 
         }catch(IOException e){
             e.printStackTrace();
