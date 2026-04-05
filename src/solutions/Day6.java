@@ -76,8 +76,6 @@ public class Day6 {
                 sum += problem.getResult();
             }
             System.out.println(sum);
-
-
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -129,16 +127,12 @@ public class Day6 {
                 for(int x = 0; x < allLines.size() - 1; x++){
                     if(!(allLines.get(x).charAt(i) == ' ')){
                         number.append(allLines.get(x).charAt(i));
-                        System.out.println(allLines.get(x).charAt(i));
                     }
                 }
-                System.out.println();
-
                 if(number.toString().isEmpty()){
                     isNewMathProblem = true;
                     continue;
                 }
-
                 problem.numbers.add(Integer.valueOf(number.toString().trim()));
             }
             long sum = 0;
@@ -146,7 +140,6 @@ public class Day6 {
                 sum += problem.getResult();
             }
             System.out.println(sum);
-
         }catch(IOException e){
             e.printStackTrace();
         }
