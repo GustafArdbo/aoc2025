@@ -16,7 +16,7 @@ public class Day7 {
 
         public final String label;
 
-        private Position(String label){
+        Position(String label){
             this.label = label;
         }
     }
