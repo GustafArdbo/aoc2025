@@ -1,44 +1,72 @@
 package solutions;
 
 import java.io.*;
-import java.util.Arrays;
 
 public class Day7 {
     private static final String FILE_NAME = "src/io/TestData";
     private static int numberOfRows;
     private static int numberOfColumns;
-    private static Position[][] matrix;
-
-    public enum Position {
-        EMPTY("."),
-        START("S"),
-        SPLIT("^");
-
-        public final String label;
-
-        Position(String label){
-            this.label = label;
-        }
-    }
+    private static String[][] matrix;
 
     public static void runPartOne(){
         try(BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))){
             counterForMatrix();
-            matrix = new Position[numberOfColumns][numberOfRows];
+            matrix = new String[numberOfRows][numberOfColumns];
 
             String line;
             int rowCounter = 0;
             while((line = br.readLine()) != null){
                 for(int col = 0; col < line.length(); col++){
-                    matrix[col][rowCounter++] = Position.valueOf(String.valueOf(line.charAt(col)));
+                    matrix[rowCounter][col] = String.valueOf(line.charAt(col));
+                }
+                rowCounter++;
+            }
+
+            for(int i = 0; i < numberOfColumns; i++){
+                if(matrix[0][i].equals("S")){
+                    matrix[1][i] = "|";
                 }
             }
-            System.out.println(Arrays.deepToString(matrix));
+            int sum = 0;
+
+            for(int row = 2; row < numberOfRows - 1; row++){
+                for(int col = 0; col < numberOfColumns; col++){
+                    if(matrix[row][col].equals("^")){
+                        if(matrix[row][col - 1].equals(".")){
+                            matrix[row][col - 1] = "|";
+                        }
+                        if(matrix[row][col + 1].equals(".")){
+                            matrix[row][col + 1] = "|";
+                        }
+                        sum++;
+                    }
+
+                    if(matrix[row][col].equals("|") && !matrix[row + 1][col].equals("^")){
+                        matrix[row + 1][col] = "|";
+                    }
+
+                }
+                System.out.println("sum = " + sum + " \t| row = " + (row));
+            }
+            printMatrix();
+            System.out.println(sum);
 
 
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    private static void printMatrix(){
+        int row = 0;
+        for(String[] pos : matrix){
+            System.out.print(row++ + "\t");
+            for(String position : pos){
+                System.out.print(position);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
     private static void counterForMatrix(){
@@ -49,6 +77,5 @@ public class Day7 {
         }catch(IOException e){
             e.printStackTrace();
         }
-
     }
 }
