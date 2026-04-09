@@ -80,14 +80,17 @@ public class Day1 {
                 char dir = line.charAt(0);
                 int number = Integer.parseInt(line.substring(1));
 
-                if(dir == 'L') {
-                    number = number * -1;
+                if(dir == 'R'){
+                    zeroCounter += (dial + number) / 100;
+                    dial = (dial + number) % 100;
+                } else {
+                    if(dial == 0) {
+                        zeroCounter += number / 100;
+                    } else {
+                        zeroCounter += (number + (100 - dial)) / 100;
+                    }
+                    dial = Math.floorMod(dial - number, 100);
                 }
-
-                dial = (dial + number) % 100;
-
-                
-
             }
             System.out.println(zeroCounter);
         } catch (IOException e){
