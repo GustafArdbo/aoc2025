@@ -4,8 +4,8 @@ import solutions.*;
 
 public class Main {
     public static void main(String[] str) {
-        Day1.run();
-        Day1.runSolution2();
+        //Day1.run();
+        Day1.runSolution2Part2();
         //Day2.run();
         //Day3.runPartOne();
         //Day3.runPartTwo();
