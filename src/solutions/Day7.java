@@ -3,7 +3,7 @@ package solutions;
 import java.io.*;
 
 public class Day7 {
-    private static final String FILE_NAME = "src/io/TestData";
+    private static final String FILE_NAME = "src/io/InputDay7";
     private static int numberOfRows;
     private static int numberOfColumns;
     private static String[][] matrix;
@@ -32,17 +32,15 @@ public class Day7 {
             for(int row = 2; row < numberOfRows - 1; row++){
                 for(int col = 0; col < numberOfColumns; col++){
                     if(matrix[row][col].equals("^")){
-                        if(matrix[row][col - 1].equals(".")){
-                            matrix[row][col - 1] = "|";
+                        matrix[row][col - 1] = "|";
+                        matrix[row][col + 1] = "|";
+                        if(matrix[row - 1][col].equals("|")){
+                            sum++;
                         }
-                        if(matrix[row][col + 1].equals(".")){
-                            matrix[row][col + 1] = "|";
-                        }
-                        sum++;
                     }
 
-                    if(matrix[row][col].equals("|") && !matrix[row + 1][col].equals("^")){
-                        matrix[row + 1][col] = "|";
+                    if(matrix[row - 1][col].equals("|") && !matrix[row][col].equals("^") && !matrix[row][col].equals("|")){
+                        matrix[row][col] = "|";
                     }
 
                 }
