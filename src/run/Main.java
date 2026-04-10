@@ -14,6 +14,8 @@ public class Main {
         //Day5.runPartTwo();
         //Day6.runPartOne();
         //Day6.runPartTwo();
-        Day7.runPartOne();
+        //Day7.runPartOne();
+        Day7BinaryTree solution = new Day7BinaryTree();
+        solution.runPartTwo();
     }
 }

@@ -3,7 +3,7 @@ package solutions;
 import java.io.*;
 
 public class Day7 {
-    private static final String FILE_NAME = "src/io/InputDay7";
+    private static final String FILE_NAME = "src/io/TestData";
     private static int numberOfRows;
     private static int numberOfColumns;
     private static String[][] matrix;
@@ -28,6 +28,7 @@ public class Day7 {
                 }
             }
             int sum = 0;
+            int splitterCounter = 0;
 
             for(int row = 2; row < numberOfRows - 1; row++){
                 for(int col = 0; col < numberOfColumns; col++){
